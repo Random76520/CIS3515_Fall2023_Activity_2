@@ -16,19 +16,15 @@ class MainActivity : AppCompatActivity() {
         val displayTextView = findViewById<TextView>(R.id.textDisplay)
 
         /* Step 1: Populate this array */
-        val numberArray = IntArray(100)
-
-        for (i in 1 .. 100) {
-            numberArray[i - 1] = i
-        }
+        val numberArray = Array(100) {(it+1)}
 
         Log.d("Array Values", numberArray[10].toString())
 
         /* Step 2: Create adapter to display items from array in Spinner */
         spinner.adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, numberArray.asList())
+        spinner.adapter = TextSizeAdapter(this, numberArray)
 
-
-        // Step 3: Change TextView's text size to the number selected in the Spinner */
+        /* Step 3: Change TextView's text size to the number selected in the Spinner */
         spinner.onItemSelectedListener = object: OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 p0?.run {
